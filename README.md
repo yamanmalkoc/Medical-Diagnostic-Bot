@@ -1,2 +1,2 @@
 # Medical-Diagnostic-Bot
-A multi-functional robot that is used for running medical tests on users which forwards the collected data to the database where the user can access to from a website and follow their own progress. Done in March-April 2019 for a project course CPEN 291 with a group of 6 people.
+Front end, back end and server management code that creates a website for the users where they can access their performance charts and progress in their medical tests. The tests are conducted by a multi-functional robot and it forwards the collected data to the database and that data is used by the website. Done in March-April 2019 for a project course CPEN 291 with a group of 6 people.
