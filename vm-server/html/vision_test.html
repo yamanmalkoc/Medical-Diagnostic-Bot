@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<!--ALL IMAGES ARE COURTESY OF PEXELS.COM-->
+<html>
+<head>
+   <title>Vision Test</title>
+   <link rel = "stylesheet" type = "text/css" href = "vision_testCSS.css" media = "screen" />
+
+</head>
+<body>
+<!--
+    <div class="openingtitle">
+        <h1>Vision Test</h1>
+    </div>
+
+-->
+    <div class="backgroundimage"></div>
+    <div id = "startInfo" align=center  >
+            <label id = "welcome" for="sequence3" class="main1" >
+                <br />
+                <br ><br >
+                Welcome to the Vision Test!
+                <br >
+            </label>
+
+             <label id = "hearingInstructions" for="sequence3" class="main2">
+
+                 <br />
+                 Letters will be displayed in different sizes, input the letter you see into the textbox.
+                 <br />
+                 You will be scored on how many letters you input correctly.
+                 <br />
+                 At the end, press Send Data to record your results.
+
+                 <br />
+                 Place Süha about 2m infront of you and press START to begin.
+                 <br />
+                 <br>
+            </label>
+        </div>
+    <div class = "main2" id="info_box" align="center">
+
+    </div>
+    <br>
+    <br>
+
+    <div class = "userinfo">
+        <button id = "begin_button" type="button" onclick="begin_test()" class = "whitebutton">START</button>
+        <br>
+        <input id = "user_input" type="text" type="text"/>
+        <button id = "submit_button" type="button" onclick="input_letter()" class = "whitebutton">Submit</button>
+        <br> <br>
+        <button id = "reset_button" type="button" onclick="reset()"class = "redbutton">Reset Test</button>
+
+    </div>
+    <script>
+    document.getElementById('info_box').innerHTML =   'Are you ready to start?';
+    document.getElementById('user_input').style.visibility = 'hidden';
+    document.getElementById('submit_button').style.visibility = 'hidden';
+    document.getElementById('reset_button').style.visibility = 'hidden';
+
+
+    </script>
+    <script src = "/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io.connect('http://cpen291-5.ece.ubc.ca');
+        socket.on('message', function(message) {
+          alert(message);
+        });
+
+        socket.on('vision_test_result', function(result) {
+          if (result.type = 'score') {
+            document.getElementById('begin_button').style.visibility = 'visible';
+            document.getElementById('user_input').style.visibility = 'hidden';
+            document.getElementById('submit_button').style.visibility = 'hidden';
+            document.getElementById('reset_button').style.visibility = 'hidden';
+
+//            document.getElementById('info_box').innerHTML = 'Your score is:' + result.score + '/100 ';
+           alert('Finished! Your score is: ' + result.score + ' %');
+          }
+        });
+
+        function reset() {
+          document.getElementById('begin_button').style.visibility = 'visible';
+          document.getElementById('user_input').style.visibility = 'hidden';
+          document.getElementById('submit_button').style.visibility = 'hidden';
+          document.getElementById('reset_button').style.visibility = 'hidden';
+          socket.emit('vision_test', {type: 'reset'})
+        }
+        function input_letter() {
+          var user_input = document.getElementById("user_input").value;
+
+          if (user_input == "" || user_input.length < 1) {
+            alert('Please enter a valid letter');
+          }
+          else {
+            socket.emit('vision_test', {type: 'input_letter', data: user_input});
+            document.getElementById("user_input").value = "";
+//            alert('Letter submitted!');
+          }
+
+
+        }
+        function begin_test() {
+          document.getElementById('begin_button').style.visibility = 'hidden';
+          document.getElementById('user_input').style.visibility = 'visible';
+          document.getElementById('submit_button').style.visibility = 'visible';
+          document.getElementById('reset_button').style.visibility = 'visible';
+//          document.getElementById('info_box').innerHTML = 'Look at the LCD screen.';
+//            document.getElementById('info_box').style.visibility = 'hidden';
+          socket.emit('vision_test', {type: 'begin_test'});
+
+        }
+    </script>
+</body>
+</html>

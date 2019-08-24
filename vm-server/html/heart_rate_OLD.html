@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Heart Rate Measurement</title>
+   <link rel = "stylesheet" type = "text/css" href = "heart_rateCSS.css" media = "screen" />
+
+</head>
+<body>
+    <br><br><br>
+    <div class="openingtitle">
+        Heart Rate Measurement
+    </div>
+    <br>
+    <div class = "main2">
+        Clip the heart rate sensor onto your finger and press start to begin the test.
+    </div>
+    <br>
+    <div class = "userinfo">
+        <button id = "begin_button" class = "whitebutton" type="button" onclick="begin_test()">Begin Test</button>
+    </div>
+    <div class = "main2" id="info_box">
+    </div>
+    <div class = "main2" id="status_box">
+<!--        PUT FINAL HEART RATE HERE-->
+    </div>
+    <script>
+    document.getElementById('status_box').style.visibility = 'hidden';
+
+    </script>
+    <script src = "/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io.connect('http://cpen291-5.ece.ubc.ca');
+        socket.on('message', function(message) {
+          alert(message);
+        });
+
+        socket.on('heart_rate_result', function(result) {
+
+        });
+        function begin_test() {
+          document.getElementById('status_box').style.visibility = 'hidden';
+          document.getElementById('info_box').innerHTML = 'The test has commenced. Continue to keep the sensor attached to your finger.';
+          document.getElementById('begin_button').style.visibility = 'hidden';
+          socket.emit('heart_rate', {type: 'begin'});
+        }
+
+
+
+    </script>
+</body>
+</html>

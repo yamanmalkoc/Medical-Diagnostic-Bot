@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Süha's World</title>
+   
+   <!-- A linkage to the CSS file that is used to make the website page more user-friendly. -->
+   <link rel = "stylesheet" type = "text/css" href = "accountCSS.css" media = "screen" />
+
+</head>
+    <body>
+        <script>
+		<!--The function that changes the html code when the hearing test option is chosen-->
+          function to_hearing_test() {
+            document.location.href = 'hearing_test.html';
+          }
+		<!--The function that changes the html code when the vision test option is chosen-->
+          function to_vision_test() {
+            document.location.href = 'vision_test.html';
+
+          }
+		<!--The function that changes the html code when the dexterity test option is chosen-->
+          function to_dexterity_test() {
+            document.location.href = 'dexterity_test.html';
+          }
+		<!--The function that changes the html code when the "my progress" option is chosen-->
+          function to_progress() {
+            if (localStorage.getItem("reflex_test") != undefined) {
+              document.location.href = 'htmlGraph.html';
+            }
+          }
+		<!--The function that changes the html code when the heart rate diagnosis option is chosen-->
+          function to_heart_rate() {
+            document.location.href = 'heart_rate.html';
+          }
+
+        </script>
+        <h1 id="header" class = "welcomesign" ></h1>
+        <ul style="colour=white">
+          <li>
+              <a class = "liney" href="#" onclick="to_progress()">My Progress</a>
+          </li>
+            <br>
+			<!--The division of the box that shows up 4 new boxes below when you hover over it-->
+            <div   class="individualtests">
+            <li>
+              <a class = "liney" >Individual Tests &#8628;  </a>
+              <div class="dropdown-content">
+			  	<!--The content of the boxes that will pop up upon hover if clicked the specified functions will be executed-->
+                <a class = "liney1" href="#" onclick="to_vision_test();">Vision Test</a>
+                <a class = "liney1" href= "#" onclick="to_hearing_test();">Hearing Test</a>
+                <a class = "liney1" href="#" onclick="to_dexterity_test();">Dexterity Test</a>
+                <a class = "liney1" href="#" onclick="to_heart_rate()">Heart Rate Test</a>
+              </div>
+            </li>
+            </div>
+
+        </ul>
+
+    <div align = "center">
+        <br> <br> <br><br> <br> <br><br> <br> <br><br> <br> <br> 
+        <button id = "logout" class = "whitebutton" type="button" onclick="logout()" >Log Out</button>
+    </div>
+
+    <script src = "/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io.connect('http://cpen291-5.ece.ubc.ca');
+
+        socket.emit('request', {type: 'get_cur_user_data'});
+        socket.emit('graphs', {type: 'get_inital_data'});
+        socket.on('cur_user', function(data) {
+          //document.getElementById("header").innerText = 'Welcome back ' + data[0]['firstName'] + ' ' + data[0]['lastName'] + '!';
+          document.getElementById("header").innerText = 'Welcome back ' + data[0]['firstName'] + ' ' + data[0]['lastName'] + '!';
+          localStorage.setItem("cur_user", JSON.stringify(data));
+
+        });
+
+        socket.on('graph_data', function(data) {
+          localStorage.setItem(data.test, JSON.stringify(data));
+        });
+        function logout() {
+          socket.emit('logout', 'logout');
+          document.location.href = "index.html";
+        }
+
+    </script>
+    </body>
+</html>

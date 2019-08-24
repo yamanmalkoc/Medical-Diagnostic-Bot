@@ -1,0 +1,10 @@
+{
+    "name": "rp-client",
+    "version": "0.0.1",
+    "description": "Raspberry Pi Client",
+    "dependencies": {
+        "childprocess": "^2.0.2",
+        "socket.io": "^2.2.0"
+    },
+    "author": "Team B4"
+}

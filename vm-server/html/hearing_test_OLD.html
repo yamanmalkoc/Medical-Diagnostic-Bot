@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Hearing Test</title>
+   <link rel = "stylesheet" type = "text/css" href = "login_page.css" media = "screen" />
+
+</head>
+<body>
+    <div class="openingtitle">
+        <h1>Hearing Test</h1>
+    </div>
+    <div class = "userinfo">
+        <button id = "start_button" type="button" onclick="start()">Start</button>
+        <button id = "stop_button" type="button" onclick="stop()">Stop</button>
+        <button id = "cant_hear_button" type="button" onclick="cant_hear()">Can't Hear</button>
+        <button id = "cant_hear_button2" type="button" onclick="cant_hear2()">Can't Hear2</button>
+        <button id = "next_ear_button" type="button" onclick="next_ear()">Next Ear</button>
+        <button id = "send_data_button" type="button" onclick="send_data()">Send Data</button>
+    </div>
+    <div>
+      <p>
+        Welcome to the hearing test. Insert some actual instructions here.
+      </p>
+    </div>
+    <div id="info_box">
+        Here information should be displayed
+    </div>
+    <script>
+      document.getElementById('cant_hear_button').style.visibility = 'hidden';
+      document.getElementById('stop_button').style.visibility = 'hidden';
+      document.getElementById('info_box').style.visibility = 'hidden';
+      document.getElementById('next_ear_button').style.visibility = 'hidden';
+      document.getElementById('cant_hear_button2').style.visibility = 'hidden';
+      document.getElementById('send_data_button').style.visibility = 'hidden';
+    </script>
+
+    <script src = "/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io.connect('http://cpen291-5.ece.ubc.ca');
+        socket.on('message', function(message) {
+          alert(message);
+        });
+
+        socket.on('hearing_test_result', function(result) {
+          if (result.type == 'finish_left') {
+            document.getElementById('info_box').innerHTML = "Your left ear registered a max frequency of " + result.left_freq + " Hz";
+          }
+          else if (result.type == 'finish_right') {
+            document.getElementById('info_box').innerHTML = "Your left ear registered a max frequency of " + result.right_freq + " Hz";
+          }
+          else {
+            alert("An unexpected communication error has occurred");
+            document.getElementById('info_box').innerHTML = "ERROR: BRYSON101";
+          }
+        });
+
+        function start() {
+          document.getElementById('start_button').style.visibility = 'hidden';
+          document.getElementById('stop_button').style.visibility = 'visible';
+          document.getElementById('cant_hear_button').style.visibility = 'visible';
+          document.getElementById('info_box').style.visibility = 'visible';
+          document.getElementById('info_box').innerHTML = "Left ear test is running";
+          socket.emit('hearing_test', 'start_left');
+        }
+        function stop() {
+          document.getElementById('stop_button').style.visibility = 'hidden';
+          document.getElementById('cant_hear_button').style.visibility = 'hidden';
+          document.getElementById('info_box').style.visibility = 'hidden';
+          document.getElementById('start_button').style.visibility = 'visible';
+          document.getElementById('send_data_button').style.visibility = 'hidden';
+          document.getElementById('next_ear_button').style.visibility = 'hidden';
+          socket.emit('hearing_test', 'stop');
+        }
+
+        function cant_hear() {
+          document.getElementById('info_box').innerHTML = "Insert Freq Data";
+          document.getElementById('next_ear_button').style.visibility = 'visible';
+          document.getElementById('cant_hear_button').style.visibility = 'hidden';
+          socket.emit('hearing_test', 'finish_left');
+        }
+        function cant_hear2() {
+          document.getElementById('info_box').innerHTML = "Insert Freq Data";
+          document.getElementById('cant_hear_button2').style.visibility = 'hidden';
+          document.getElementById('send_data_button').style.visibility = 'visible';
+
+          socket.emit('hearing_test', 'finish_right');
+        }
+
+        function next_ear() {
+          document.getElementById('info_box').innerHTML = "Right ear test is running";
+          document.getElementById('next_ear_button').style.visibility = 'hidden';
+          document.getElementById('cant_hear_button2').style.visibility = 'visible';
+          socket.emit('hearing_test', 'start_right');
+        }
+
+        function send_data() {
+          document.getElementById('send_data_button').style.visibility = 'hidden';
+          document.getElementById('start_button').style.visibility = 'visible';
+          document.getElementById('stop_button').style.visibility = 'hidden';
+          document.getElementById('info_box').style.visibility = 'hidden';
+
+          socket.emit('hearing_test', 'send_data');
+        }
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel = "stylesheet" type = "text/css" href = "graph_page.css" media = "screen" />
+   <script type="text/javascript" src="./graphFunctions.js"></script>
+  </head>
+
+  <body>
+      <!-- HTML CODE -->
+      <br><br>
+    <div class = "welcomesign">
+        Check out your results!
+    </div>
+        <div id="personal_stats">
+        <h3>Personal Stats:</h3>
+<!--        <div id = "Height" ></div>-->
+        <p id = "Height" ></p>
+        <p id ="Weight"></p>
+        <p id = "BMI"></p>
+        <p id = "HeartRate"></p>
+        <p id = "VisionStat"></p>
+        <p id = "HearingStat"></p>
+        <p id = "DexterityStat"></p>
+        <p id = "estimated_age"></p>
+    </div>
+
+        <!-- JavaScript imports -->
+        <script src = "/socket.io/socket.io.js"></script>
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script type="text/javascript">
+          google.load("visualization", "1", {packages:["corechart"]});
+        </script>
+        <script type="text/javascript">
+        var socket = io.connect('http://cpen291-5.ece.ubc.ca');
+        var data_hearing = JSON.parse(localStorage.getItem("hearing_test"));
+        var data_vision = JSON.parse(localStorage.getItem("vision_test"));
+        var data_reflex = JSON.parse(localStorage.getItem("reflex_test"));
+        var data_user = JSON.parse(localStorage.getItem("cur_user"));
+        var data_curr = JSON.parse(localStorage.getItem("user_info"));
+
+        makeLeftHearingGraph(data_hearing.data);
+        makeRightHearingGraph(data_hearing.data);
+        makeVisionGraph(data_vision.data);
+        makeDexterityGraph(data_reflex.data);
+
+        var estimated_age = getEstimatedAge((data_curr.data[0].L + data_curr.data[0].R)/2);
+        var height = data_user[0].height > 0 ? data_user[0].height : "Not Recorded";
+        var weight = data_user[0].weight > 0 ? data_user[0].weight : "Not Recorded";//data_user.data.weight;
+        var bmi = (height/100)*(height/100)/weight;
+
+        var heartRate = data_curr.data[0].heartrate;
+        var visionScore = data_curr.data[0].vscore;
+        var hearingScoreL = data_curr.data[0].L;
+        var hearingScoreR = data_curr.data[0].R;
+        var dexScore = data_curr.data[0].rscore;
+        document.getElementById("Height").innerHTML = "Height: " + height + " cm";
+        document.getElementById("Weight").innerHTML = "Weight: " + weight + " kg";
+        if (bmi < 0) {
+          document.getElementById("BMI").innerHTML = "BMI: " +  "N/A";
+        }
+        else {
+          document.getElementById("BMI").innerHTML = "BMI: " +  bmi.toFixed(2);
+        }
+        document.getElementById("HeartRate").innerHTML = "HeartRate: " + heartRate;
+        document.getElementById("VisionStat").innerHTML = "Highest Vision Test Score: " + visionScore;
+        document.getElementById("HearingStat").innerHTML = "Average Hearing Test Score: " + ((hearingScoreL + hearingScoreR)/2).toFixed(2) + "Hz";
+        document.getElementById("DexterityStat").innerHTML = "Highest Dexterity Test Score: " + dexScore;
+        document.getElementById("estimated_age").innerHTML = "Estimated Age: " + estimated_age;
+
+
+    </script>
+    <div id="chart_div_hearing_left"></div>
+    <div id="chart_div_hearing_right"></div>
+    <div id="chart_div_vision"></div>
+    <div id="chart_div_dexterity"></div>
+  </body>
+</html>

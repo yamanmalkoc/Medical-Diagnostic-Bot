@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+   <title>Süha's World</title>
+   <link rel = "stylesheet" type = "text/css" href = "create_new_accountCSS.css" media = "screen" />
+</head>
+<body>
+<!--Connection to socket io to communicate with server-->
+  <script src = "/socket.io/socket.io.js"></script>
+  <script>
+      var socket = io.connect('http://cpen291-5.ece.ubc.ca');
+      
+/*    Upon making a new account, this function  saves the info inputed by the user to the database */
+      function saveAccount() {
+        document.getElementById("height").defaultValue = -1;
+        document.getElementById("weight").defaultValue = -1;
+        document.getElementById("age").defaultValue = -1;
+        document.getElementById("gender").defaultValue = '---';
+
+        var first = document.getElementById("name").value;
+        var last = document.getElementById("last").value;
+        var userName = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+        var age = document.getElementById("age").value;
+        var gender = document.getElementById("gender").value;
+        var height = document.getElementById("height").value;
+        var weight = document.getElementById("weight").value;
+
+          var object = {
+              first: first,
+              last: last,
+              userName: userName,
+              password: password,
+              gender: gender,
+              age: age,
+              height: height,
+              weight: weight
+          }
+
+          socket.emit('new_user', object);
+          document.location.href = 'index.html';
+
+
+
+
+  //        document.getElementById("missinglast").innerText = checkText(document.getElementById("last")) ? "You can't leave this box empty!": "";
+  //
+  //        document.getElementById("missingusername").innerText =
+  //            checkText(document.getElementById("username")) ? "You can't leave this box empty!": "";
+  //
+  //        document.getElementById("missingpassword").innerText =
+
+  //            checkText(document.getElementById("password")) ? "You can't leave this box empty!": "";
+  //
+  //        document.getElementById("missingpassword2").innerText =
+
+  //            checkText(document.getElementById("passwordagain")) ? "You can't leave this box empty!": "";
+  //
+  //        document.getElementById("missinglast").innerText = checkText(document.getElementById("age")) ? "You can't leave this box empty!": "";
+
+      }
+
+  //     function checkText(input) {
+  //         return (input.value === "") ? true : false;
+  //     }
+
+  </script>
+<!--Begining of asthetic stuff like title and buttons/boxes-->
+    <div class = "welcome">
+        <p>Glad to have you with us!</p>
+    </div>
+    <div class = "account_info">
+        <div id="nameentry">
+            <label for="sequence1" class = "main2">Name *</label><br>
+            <p id = "missingname" style="color:red"></p>
+            <input id = "name" type="text"/>
+        </div>
+
+        <div data-is-visible="false">
+            <label for="sequence2" class = "main2">Last Name *</label><br>
+            <p id = "missinglast" style="color:red"></p>
+            <input id = "last" type="text"/>
+        </div>
+        <div>
+            <label for="sequence3" class = "main2">Username *</label><br>
+            <p id = "missingusername" style="color:red"></p>
+            <input id = "username" type="text"/>
+        </div>
+        <div>
+            <label for="sequence4" class = "main2">Password *</label><br>
+            <p id = "missingpassword" style="color:red"></p>
+            <input id = "password" type="password"/>
+        </div>
+        <div>
+            <label for="sequence5" class = "main2">Password Again *</label><br>
+            <p id = "missingpassword2" style="color:red"></p>
+            <input id = "password2" type="password"/>
+        </div>
+        <p id = "passwordmismatch" style="color:red"></p>
+        <div>
+            <label id="genderid" for="sequence9" class = "main2">Gender</label><br>
+            <select id = "gender"  style = "width:150px;">
+              <option value="">----</option>
+                <option value="male">Male</option>
+              <option value="Female">Female</option>
+              <option value="unknown">Prefer not to answer</option>
+            </select>
+        </div>
+        <div>
+            <label for="sequence8" class = "main2">Age Interval</label><br>
+            <p id = "missingage" style="color:red"></p>
+            <select id = age style = "width:150px;">
+              <option value=0></option>
+              <option value=15>0-15</option>
+              <option value=25>15-25</option>
+              <option value=45>25-45</option>
+              <option value=65>45-65</option>
+              <option value=100>65+</option>
+
+            </select>
+        </div>
+        <div>
+            <br>
+            <label for="sequence6" class = "main2">Height (in cm)</label><br>
+            <input id = "height" type="text" />
+        </div>
+        <div>
+            <br>
+            <label for="sequence7" class = "main2">Weight (in kg)</label><br>
+            <input id = "weight" type="text" />
+
+        </div>
+        <div>
+            <br>
+            <button class = "whitebutton" type="button" onclick="saveAccount()">Submit</button>
+        </div>
+    </div>
+</body>
+</html>

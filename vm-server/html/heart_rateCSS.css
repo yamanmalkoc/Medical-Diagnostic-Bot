@@ -1,0 +1,67 @@
+/*This style file is used to determine the design of the 
+ *HTML page for the heart rate test. All photos courtesy of 
+ *pexals.com
+ */
+
+body, html {
+  height: 100%;
+    background-image: url(heartrate.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% auto ;
+}
+
+.userinfo{
+    text-align: center;   
+}
+
+
+.openingtitle{
+    color:white;
+    font-size: 65px;
+    font-family: perpetua;
+    text-align: center;
+    font-weight:bold;
+}
+
+.main1{
+    font-weight:bold;
+    font-size:30px;
+    color:white;
+    font-family: verdana;
+    text-align: center;
+}
+.main2{
+    font-size:20px;
+    color:white;
+    text-align: center;
+    font-family: perpetua;
+}
+
+
+
+.redbutton {
+  background-color: darkred;
+  border: none;
+  color: black;
+  padding: 7px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  font-weight: bolder;
+  font-family:perpetua;
+  border-radius: 8px;
+}
+.whitebutton {
+  background-color: white;
+  border: none;
+  color: black;
+  padding: 7px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  font-weight: bolder;
+  font-family:perpetua;
+  border-radius: 8px;
+}

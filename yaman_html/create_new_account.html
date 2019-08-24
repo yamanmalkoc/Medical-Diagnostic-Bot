@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Süha's World</title>
+   <link rel = "stylesheet" type = "text/css" href = "login_page.css" media = "screen" />
+   
+</head>
+<script>
+    function saveAccount() {
+        document.getElementById("missingname").innerText = checkText(document.getElementById("name")) ? "You can't leave this box empty!": "";
+        document.getElementById("missinglast").innerText = checkText(document.getElementById("last")) ? "You can't leave this box empty!": "";
+        document.getElementById("missingusername").innerText = 
+            checkText(document.getElementById("username")) ? "You can't leave this box empty!": "";
+        
+        document.getElementById("missingpassword").innerText = 
+            checkText(document.getElementById("password")) ? "You can't leave this box empty!": "";
+        
+        document.getElementById("missingpassword2").innerText = 
+            checkText(document.getElementById("password2")) ? "You can't leave this box empty!": "";
+
+        if(document.getElementById("password").value !==    document.getElementById("password2").value){
+            document.getElementById("passwordmismatch").innerText = "Passwords don't match!";
+        } else {
+            document.getElementById("passwordmismatch").innerText = "";
+        }
+    }
+    function checkText(input) {
+        return (input.value === "") ? true : false;
+    }
+</script>
+<body class = "the_whole_thing">
+    <div class = "title_new_account">
+        <h1>Glad to have you with us!</h1>
+    </div>
+    <div class = "account_info">  
+        <div id="nameentry">
+            <label for="sequence1" style="cursor:pointer;font-weight:bold;">Name *</label><br>
+            <p id = "missingname" style="color:red"></p>
+            <input id = "name" type="text"/>
+        </div>
+        <div data-is-visible="false">
+            <label for="sequence2" style="cursor:pointer;font-weight:bold;">Last Name *</label><br>
+            <p id = "missinglast" style="color:red"></p>
+            <input id = "last" type="text"/>
+        </div>
+        <div>
+            <label for="sequence3" style="cursor:pointer;font-weight:bold;">Username *</label><br>
+            <p id = "missingusername" style="color:red"></p>
+            <input id = "username" type="text"/>
+        </div>
+        <div>
+            <label for="sequence4" style="cursor:pointer;font-weight:bold;">Password *</label><br>
+            <p id = "missingpassword" style="color:red"></p>
+            <input id = "password" type="password"/>
+        </div>
+        <div>
+            <label for="sequence5" style="cursor:pointer;font-weight:bold;">Password Again *</label><br>
+            <p id = "missingpassword2" style="color:red"></p>
+            <input id = "password2" type="password"/>
+        </div>
+        <p id = "passwordmismatch" style="color:red"></p>
+        <div>
+            <label id="genderid" for="sequence9" style="cursor:pointer;font-weight:bold ;">Gender</label><br>
+            <select style = "width:150px;">
+              <option value="">----</option>
+              <option value="male">Male</option>
+              <option value="Female">Female</option>
+              <option value="unknown">Prefer not to answer</option>
+            </select>
+        </div>
+        <div>
+            <label for="sequence8" style="cursor:pointer;font-weight:bold;">Age Interval</label><br>
+            <p id = "missingage" style="color:red"></p>
+            <select style = "width:150px;">
+              <option value=""></option>
+              <option value="kid">0-15</option>
+              <option value="teen">15-25</option>
+              <option value="young adult">25-45</option>
+              <option value="adult">45-65</option>
+              <option value="elder">65+</option>
+            </select>
+        </div>
+        <div>
+            <label for="sequence6" style="cursor:pointer;font-weight:bold;">Height (in cm)</label><br>
+            <input id = "height" type="text"/>
+        </div>
+        <div>
+            <label for="sequence7" style="cursor:pointer;font-weight:bold;">Weight (in kg)</label><br>
+            <input id = "weight" type="text"/>
+        </div>
+        <div>
+            <button type="button" onclick="saveAccount()">Submit</button>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Dexterity Test</title>
+   <link rel = "stylesheet" type = "text/css" href = "dexterity_testCSS.css" media = "screen" />
+
+</head>
+<body>
+    <br>
+<!--    Begining of asthetic stuff, title, instructions-->
+    <div class="openingtitle">
+        <h1>Dexterity Test</h1>
+    </div>
+    <div class = "main2">
+        Welcome to the dexterity test.
+        <br/>
+        Six balls will be catapulted within your viscinity.
+        <br/>
+        You must catch as many as possible, reloading the catapult each time,
+        <br/>
+        pressing Süha's button and returning to your original spot each time.
+        <br/>
+        Record how many balls you catch and enter it in the box when you are done.
+        <br>
+        Place Süha at your feet and press START to begin.
+        <br><br>
+    </div>
+<!--    This box will used to display the status of the test-->
+    <div id="status_box" class = "main2">
+        Here the status is displayed
+    </div>
+    <div class = "main2">
+        <button id = "begin_button" type="button" class = "whitebutton" onclick="begin_test()">START</button>
+            <br>
+        <input id = "user_input" type="text"  type="text"/>
+        
+        <button id = "submit_button" class = "whitebutton" type="button" onclick="submit()">SUBMIT</button>
+        
+
+    </div>
+    
+    <script>
+    document.getElementById('user_input').style.visibility = 'hidden';
+    document.getElementById('submit_button').style.visibility = 'hidden';
+    document.getElementById('status_box').style.visibility = 'hidden';
+
+    </script>
+    <script src = "/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io.connect('http://cpen291-5.ece.ubc.ca');
+        socket.on('message', function(message) {
+          alert(message);
+        });
+        
+        /*
+         End of the test, displays "test has completed" message and waits for user to press submit to record their results
+        */
+        socket.on('dex_test', function(request) {
+          document.getElementById('user_input').style.visibility = 'visible';
+          document.getElementById('submit_button').style.visibility = 'visible';
+          document.getElementById('begin_button').style.visibility = 'hidden'
+          document.getElementById('status_box').innerHTML = "The test has completed. Please record your results."
+
+        });
+        
+        /*
+         This function saves result of test to the data base, sends alert if user doesn't input a
+         number between 0 and 6
+        */
+        function submit() {
+          var user_input = document.getElementById("user_input").value;
+
+          if (user_input == "0" || user_input == "1" || user_input == "2" || user_input == "3" || user_input == "4"
+              || user_input == "5" || user_input == "6") {
+              document.getElementById('user_input').style.visibility = 'hidden';
+              document.getElementById('submit_button').style.visibility = 'hidden';
+              document.getElementById('status_box').style.visibility = 'hidden';
+              document.getElementById('begin_button').style.visibility = 'visible';
+              socket.emit('dex_test', {type: 'user_input', user_input: user_input});
+          }
+          else {
+            alert('Please enter a number between 0-6');
+          }
+        }
+        
+        /*
+          This function is called upon start button being pressed, displays a "test is running" message
+          and tells socket to begin python code
+        */
+        function begin_test() {
+          document.getElementById('begin_button').style.visibility = 'hidden';
+          document.getElementById('status_box').innerHTML = "The test is running. Please refer to Süha."
+          
+          document.getElementById('status_box').style.visibility = 'visible';        
+
+          socket.emit('dex_test', {type: 'begin'});
+        }
+    </script>
+</body>
+</html>

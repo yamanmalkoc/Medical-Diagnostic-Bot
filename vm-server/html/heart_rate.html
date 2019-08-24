@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Heart Rate Measurement</title>
+   <link rel = "stylesheet" type = "text/css" href = "heart_rateCSS.css" media = "screen" />
+
+</head>
+<body>
+    <br><br><br>
+    <div class="openingtitle">
+        Heart Rate Measurement
+    </div>
+    <br>
+    <div class = "main2">
+        Input your daily heart rate for your records. Measured in BPM.
+    </div>
+    <br>
+    <!-- Button to update heart rate -->
+    <div class = "userinfo">
+        <button id = "update_hr" class = "whitebutton" type="button" onclick="update_hr()">Update Heart Rate</button>
+        <input id = "user_input" type="text" type="text"/>
+    </div>
+    <div class = "main2" id="status_box">
+	<!-- FINAL HEART RATE HERE GOES HERE -->
+    </div>
+    <script>
+    // document.getElementById('status_box').style.visibility = 'vis';
+
+    </script>
+    <script src = "/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io.connect('http://cpen291-5.ece.ubc.ca');
+        socket.on('message', function(message) {
+          alert(message);
+        });
+
+        // This function updates the heart rate of the user to keep track of his or her health
+        function update_hr() {
+          var user_input = document.getElementById("user_input").value;
+          if (user_input == "") {
+            alert('Please enter a valid heart rate in BPM');
+          }
+          else {
+            document.getElementById("user_input").value = "";
+            socket.emit('heart_rate', {type: 'user_input', user_input: user_input});
+            alert('Heart Rate Submitted Succesfully');
+          }
+        }
+
+
+
+    </script>
+</body>
+</html>

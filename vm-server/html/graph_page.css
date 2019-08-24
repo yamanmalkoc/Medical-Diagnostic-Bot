@@ -1,0 +1,292 @@
+/*This style file determines the design of the page used to 
+ *show the graphical analysis of the health and fitness tests.
+ * All photos courtesy of pexals.com
+ */
+ 
+body, html {
+  height: 100%;
+    background-image: url(graphback.jpg);
+    background-size: 100% auto  ;
+}
+
+
+#chart_div_hearing_left{
+    position: relative;
+    float:left;
+    width:15%;
+    left:770px;
+    top: 400px;
+}
+
+#chart_div_hearing_right{
+    position: relative;
+    float:left;
+    width: 15%;
+    left: 904px;
+    top: 400px;
+/*    background-color: aqua;*/
+}
+
+#chart_div_vision{
+    position: relative;
+    float:left;
+    width:15%;
+    left:310px;
+    top: 80px;
+/*    background-color:blue;*/
+}
+
+#chart_div_dexterity{
+    position: relative;
+    float:left;
+    width: 15%;
+    left: 450px;
+    top: 80px;
+/*    background-color: aqua;*/
+}
+
+h3{
+    
+    text-align: center;
+    font-size : 30px;
+    font-family: perpetua;
+    font-weight: bold;
+    color: rgb(15, 15, 15);
+}
+
+h1{
+    color: rgb(255, 246, 246); 
+    font-family:fantasy;
+    text-decoration: none;
+    text-align: center;
+    position: relative;
+    font-size: 50px;
+    top: 20px;
+}
+
+p{
+    position: relative;
+    left: 30px;
+    font-family: perpetua;
+    font-weight: bold;
+    font-size: 30px;
+    color: rgb(15, 15, 15);
+}
+
+
+#VisionStat{
+/*    left: 40px;*/
+    position: absolute;
+    top: 70px;
+    left: 280px;   
+}
+
+#HearingStat{
+    position: absolute;
+    top: 140px;
+    left: 280px;   
+}
+#estimated_age{
+    position: absolute;
+    top: 210px;
+    left: 280px;   
+}
+
+#DexterityStat{
+    position: absolute;
+    top: 200px;
+    left: 280px;   
+}
+
+#Height{
+/*    left: 40px;*/
+    position: absolute;
+    top: 70px;
+/*    left: 280px;   */
+}
+
+#Weight{
+    position: absolute;
+    top: 120px;
+/*    left: 280px;   */
+}
+
+#BMI{
+    position: absolute;
+    top: 170px;
+/*    left: 280px;   */
+}
+
+#HeartRate{
+    position: absolute;
+    top: 220px;
+/*    left: 280px;   */
+}
+
+#estimated_age{
+    position: absolute;
+    top: 220px;
+    left: 280px;   
+}
+
+
+.title{
+    position:sticky;
+    height: 100px;
+    background-color: rgb(219, 68, 55);
+    color: rgba(255, 255, 255, 1);
+}
+
+#estimate_age{
+    position: absolute;
+    top: 500px;
+    background-color:white;
+    color: black;
+    width: 43%;
+    height: 25px;
+/*    border: 7px solid rgb(219, 68, 55);*/
+    padding: 20px;
+    left: 25px;
+    margin-top: 20px;
+/*    margin-bottom: 30px;*/
+    font-family:"georgia, garamond, serif";
+/*    font-family: bold;*/
+/*    border-radius: 25px;*/
+    text-align: center;
+    vertical-align: middle;
+    line-height: 18px; 
+}
+
+#estimate_hear{
+/*    background-color: black;*/
+    position: absolute;
+    top: 500px;
+    background-color:white;
+    color: black;
+    width: 17%;
+    left: 735px;
+/*    top: 300px;*/
+    height: 25px;
+    padding: 22px;
+    margin-left: 60px;
+    margin-top: 20px;
+    font-family:"georgia, garamond, serif";
+    text-align: center;
+    vertical-align: middle;
+    line-height: 18px; 
+}
+
+#estimate_dex{
+/*    background-color: black;*/
+    position: absolute;
+    top: 500px;
+    background-color:white;
+    color: black;
+    width: 15%;
+    left: 1120px;
+    height: 25px;
+    padding: 22px;
+    margin-left: 60px;
+    margin-top: 20px;
+    font-family:"georgia, garamond, serif";
+    text-align: center;
+    vertical-align: middle;
+    line-height: 18px; 
+}
+
+#personal_stats{
+    background-color: white;
+    position: absolute;
+    color: black;
+    width: 40%;
+    left: 5%;
+    height: 300px;
+    margin-top: 80px;
+    font-family:"georgia, garamond, serif";
+    text-align: left;
+    vertical-align: middle;
+    line-height: 18px; 
+    border-radius: 5px; 
+/*
+      
+    border: 7px solid rgb(219, 68, 55);
+*/
+    
+}
+
+
+
+
+.account_info{
+    text-align: center;   
+}
+
+.liney{
+    width:140px;
+    text-align:left;
+    font-family: perpetua;
+    font-size:36px;
+    color:white;
+    text-decoration: none;
+}
+.liney1{
+    width:140px;
+    text-align:left;
+    font-family: perpetua;
+    font-size:24px;
+    color:white;
+    text-decoration: none;
+    padding: 21px 8px;
+}
+.welcomesign{
+    text-align: center;
+    font-weight:bold;
+    font-size:70px;
+    color:black;
+    font-family: perpetua;
+}
+
+.main1{
+    font-weight:bold;
+    font-size:30px;
+    color:black;
+    font-family: perpetua;
+    text-align: center;
+}
+.main2{
+    font-size:18px;
+    color:black;
+    font-weight:bold;
+    text-align: center;
+    font-family: perpetua;
+}
+
+
+
+.redbutton {
+  background-color: darkred;
+  border: none;
+  color: white;
+  padding: 7px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  font-weight: bolder;
+  font-family:perpetua;
+  border-radius: 8px;
+}
+.whitebutton {
+  background-color: black;
+  color: white;
+  padding: 3px 15px;
+  align-content: right;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  font-weight: bolder;
+  font-family:perpetua;
+  border-radius: 3px;
+}
+
+

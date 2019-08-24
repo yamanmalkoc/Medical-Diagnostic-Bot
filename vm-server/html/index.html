@@ -1,0 +1,85 @@
+<!-- This is the first HTML file to be accessed from the server. It is a login page -->
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Süha's World</title>
+   <link rel = "stylesheet" type = "text/css" href = "maincss.css" media = "screen" />
+
+</head>
+<body>
+    <script src = "/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io.connect('http://cpen291-5.ece.ubc.ca');
+        socket.on('message', function(message) {
+          alert(message);
+        });
+
+        //Listens on the 'login_result' event from the server
+        socket.on('login_result', function(data) {
+          //If the server validates the login, the html changes to account.html
+          if (data.status == 'success') {
+            socket.emit('login_success', {cur_user: data.username});
+            document.location.href = 'account.html';
+          }
+          //If username/password is incorrect/does not exist an error alert is sent
+          else if (data.status == 'failure') {
+            alert('The following username and password combination is invalid. Please try again');
+          }
+          //If another user is already logged it, a concurrent user error is sent
+          else if (data.status == 'conc_user') {
+            alert('Sorry! Someone else is currently using the system. Concurrent users is currently not supported.');
+          }
+          else {
+            alert('An unexpected database error has occured. Please try again\nERROR: BRYSON101');
+          }
+        });
+
+        function blink() {
+            socket.emit('request', 'blink');
+        }
+
+        function attempt_login() {
+          var inputUsername = document.getElementById("username").value;
+          var inputPassword = document.getElementById("password").value;
+
+          var object = {
+            username: inputUsername,
+            password: inputPassword
+          }
+          socket.emit('login_attempt', object);
+        }
+        function go_to_create_account() {
+            document.location.href = "create_new_account.html";
+        }
+    </script>
+    <div class="parallax"></div>
+    <div class="animated fadeIn">Süha's World</div>
+    <div class="welcome">Welcome</div>
+    <div class = "userinfo">
+        <div>
+            <label for="sequence1" style="cursor:pointer;font-weight:bold;">Username:</label><br>
+            <input id = "username" type="text" type="text"/>
+
+        </div>
+        <div class = "passworddiv" type="password" data-is-visible="false">
+            <label for="sequence2" style="cursor:pointer;font-weight:bold;">Password:</label><br>
+            <input id = "password" type="password"/>
+        </div>
+
+        <div>
+            <button class = "signinbutton" id = "submitbutton1" type="button" onclick="attempt_login()">Submit</button>
+<!--            <button id = "blinkbutton" type="button" onclick="blink()">Blinky Blink</button>-->
+        </div>
+        <div class ="noaccount">
+            <label id = "noaccounttext" for="sequence3" style="cursor:pointer;font-weight:bold;">Don't have an account?</label><br>
+            <button type="button" class = "signinbutton" onclick = "go_to_create_account()">Create new account</button>
+            <br><br><br><br><br>
+        </div>
+    </div>
+
+<p id="submit button"></p>
+
+<p style="text-align:center;" id="mismatch"></p>
+
+</body>
+</html>

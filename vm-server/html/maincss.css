@@ -1,0 +1,225 @@
+
+/*ALL IMAGES ARE COURTESY OF PEXELS.COM*/
+body, html {
+  height: 100%;
+/*    filter: blur(8px);*/
+/*    -webkit-filter: blur(8px);*/
+    background-image: url("background.png");
+    background-position: : 0, -1000px
+}
+
+h1{
+    color: rgb(255, 246, 246); 
+    font-family:verdana;
+    text-decoration: none;
+    text-align: center;
+    position: relative;
+    font-size: 50px;
+    top: 20px;
+}
+/* Parallax taken from : https://www.w3schools.com/howto/howto_css_parallax.asp*/
+.parallax { 
+  /* The image used */
+  background-image: url("mainpic.jpg");
+
+  /* Set a specific height */
+  height: 100%; 
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.passworddiv{
+    padding-bottom:10px;
+}
+
+.openingtitle{
+    position:sticky;
+    height: 100px;
+    background-color: rgb(219, 68, 55);
+    color: rgba(255, 255, 255, 1);
+    font-family:verdana;
+}
+
+.noaccount{
+    padding-top:0px;
+    padding-bottom:10px;
+}
+
+.userinfo{
+    
+    text-align: center;
+    color: rgb(0, 60, 80);
+    font-family:perpetua;
+    font-size: 30px;
+/*    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;*/
+
+        
+}
+.welcome{
+    text-align: center;
+
+    color: rgb(0, 60, 80);
+    font-family:perpetua;
+    font-size: 120px;
+    padding-top:20px;
+    padding-bottom:30px;
+/*    sssssss*/
+        
+}
+
+.signinbutton {
+  background-color:rgb(0, 60, 80) ;
+  border-radius: 8px;
+  border: none;
+  color: white;
+  padding: 3px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 18px;
+  font-weight: bolder;
+  font-family:perpetua;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+}
+
+.signinbutton:hover {
+  background-color:rgb(0, 90, 160) ;
+  border-radius: 8px;
+  border: none;
+  color: white;
+  padding: 3px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 18px;
+  font-weight: bolder;
+  font-family:perpetua;
+  -webkit-transition-duration: 0.4s;  Safari 
+  transition-duration: 0.4s;
+}
+
+
+
+.title_new_account{
+    position:sticky;
+    height: 100px;
+    background-color: rgb(219, 68, 55);
+    color: rgba(255, 255, 255, 1);
+}
+.account_info{
+    text-align: center;
+}
+
+genderid{
+    padding-bottom: 15px;
+}
+
+a:link, a:visited {
+  background-color: #f44336;
+  color: white;
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+a:hover, a:active {
+  background-color: indianred;
+}
+
+
+.dropbtn {
+  background-color: #f44336;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+.individualtests {
+  position: relative;
+  display: inline-block;
+  background-color: rgb(219, 68, 55);
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: red;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.6);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: maroon}
+
+.individualtests:hover .dropdown-content {display: block;}
+
+.individualtests:hover .dropbtn {background-color: indianred;}
+
+/*Fading text taken from https://www.tutorialspoint.com/css/css_animation_fade_in.htm*/
+.animated{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  transform: translate(-50%, -50%);
+  font-size: 90px;
+  font-family: verdana;
+  font-weight: 300;
+  text-shadow: 2px 2px rgb(0, 60, 80);
+  color: white;
+  -webkit-animation-duration: 10s;
+  animation-duration: 7s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+@keyframes fade {
+  0% {opacity: 0;}
+   100% {opacity: 1;}
+}
+@-webkit-keyframes fadeIn {
+            0% {opacity: 0;}
+            100% {opacity: 1;}
+         }
+         
+         @keyframes fadeIn {
+            0% {opacity: 0;}
+            100% {opacity: 1;}
+         }
+         
+         .fadeIn {
+            -webkit-animation-name: fadeIn;
+            animation-name: fadeIn;
+         }
+}
+/*
+.animation-box {
+  width: 75%;
+  height: 27.5rem;
+  background-color: blue;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+}
+
+.animation-container {
+  width: 1000rem;
+  height: 30rem;
+}
+*/

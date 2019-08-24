@@ -1,0 +1,70 @@
+/*This style file is used to design the HTML page for the dexterity test. 
+ *It includes the fontstyle and formatting as well. All photos courtesy of 
+ pexals.com*/
+
+body, html {
+  height: 100%;
+    background-image: url(dexterity.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% auto ;
+}
+
+.userinfo{
+    text-align: center;   
+}
+
+.openingtitle{
+    color:white;
+    font-size: 30px;
+    font-family: verdana;
+    text-align: center;
+/*    text-shadow: 2px 4px black;*/
+    text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+}
+
+.main1{
+    font-weight:bold;
+    font-size:36px;
+    color:white;
+    font-family: perpetua;
+    text-align: center;
+    text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+}
+.main2{
+    font-size:24px;
+    font-weight:bold;
+    
+    color:white;
+    text-align: center;
+    font-family: perpetua;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+
+}
+
+.redbutton {
+  background-color: darkred;
+  border: none;
+  color: black;
+  padding: 7px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  font-weight: bolder;
+  font-family:perpetua;
+  border-radius: 8px;
+}
+.whitebutton {
+  background-color: white;
+  border: 2px solid black;
+  color: black;
+  padding: 7px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  font-weight: bolder;
+  font-family:perpetua;
+  border-radius: 8px;
+}
+

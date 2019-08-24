@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<!--ALL IMAGES ARE COURTESY OF PEXELS.COM-->
+<html>
+<head>
+   <title>Hearing Test</title>
+    <link rel = "stylesheet" type = "text/css" href = "hearing_testCSS.css" media = "screen" />
+   <link rel = "stylesheet" type = "text/css" href = "login_page.css"  media = "screen"/>
+
+
+</head>
+<body >
+<!--   Start of asthetics, displays welcome message and instructions for the test, along with beginning start button.-->
+    <div id = "startInfo" align=center  >
+            <label id = "welcome" for="sequence3" class="main1" >
+                <br />
+                Welcome to the Hearing Test!
+                <br >
+                <br >
+            </label>
+            
+             <label id = "hearingInstructions" for="sequence3" class="main2">
+                 Instructions:
+                <br >
+                 A range a frequencies will be played in your left ear,
+                 <br />
+                 press Stop Left Ear when you can no longer hear the sound.
+                 <br />
+                 Do the same with the right ear.
+                 Press CANCEL at anytime to stop the test.
+                 <br />
+                 At the end, press Send Data to record your results.
+                 <br />
+                Put headphones on and press START to begin test
+                 <br />
+                 <br />
+            </label>
+        </div>
+    <div class = "main1" id="info_box" align="center">
+        Are you ready to start?
+    </div>
+    <div class = "userinfo">
+        <br >
+        <button id = "start_button"  type="button" onclick="start()" class = "whitebutton" align = "center">START</button>
+        <br />
+        <button id = "cant_hear_button" type="button" onclick="cant_hear()"class = "whitebutton">Stop Left Ear</button>
+        <button id = "cant_hear_button2" type="button" onclick="cant_hear2()"class = "whitebutton">Stop Right Ear</button>
+        <button id = "next_ear_button" type="button" onclick="next_ear()"class = "whitebutton">Next Ear</button>
+        <br />
+        <br />
+        <button id = "send_data_button" type="button" onclick="send_data()"class = "whitebutton">Send Data </button>
+        <button id = "stop_button" type="button" onclick="stop()" class = "redbutton">CANCEL</button>
+    </div>
+
+
+    <script>
+      document.getElementById('cant_hear_button').style.visibility = 'hidden';
+      document.getElementById('stop_button').style.visibility = 'hidden';
+      document.getElementById('info_box').style.visibility = 'visible';
+      document.getElementById('next_ear_button').style.visibility = 'hidden';
+      document.getElementById('cant_hear_button2').style.visibility = 'hidden';
+      document.getElementById('send_data_button').style.visibility = 'hidden';
+
+
+    </script>
+
+    <script src = "/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io.connect('http://cpen291-5.ece.ubc.ca');
+        socket.on('message', function(message) {
+          alert(message);
+        });
+        //displays hearing test result 
+        socket.on('hearing_test_result', function(result) {
+          if (result.type == 'finish_left') {
+            document.getElementById('info_box').innerHTML = "Your left ear registered a max frequency of " + result.left_freq + " Hz";
+
+          }
+          else if (result.type == 'finish_right') {
+            document.getElementById('info_box').innerHTML = "Your right ear registered a max frequency of " + result.right_freq + " Hz";
+          }
+          else {
+            alert("An unexpected communication error has occurred");
+            document.getElementById('info_box').innerHTML = "ERROR: BRYSON101";
+          }
+        });
+        /*
+        Called when start button is pressed, displays "left ear test is running"
+        */
+        function start() {
+          document.getElementById('start_button').style.visibility = 'hidden';
+          document.getElementById('stop_button').style.visibility = 'visible';
+          document.getElementById('cant_hear_button').style.visibility = 'visible';
+          document.getElementById('info_box').style.visibility = 'visible';
+          document.getElementById('info_box').innerHTML = "LEFT EAR TEST IS RUNNING";
+          socket.emit('hearing_test', 'start_left');
+        }
+        /*
+        Called when stop button is pressed, only displays the start button
+        */
+        function stop() {
+          document.getElementById('stop_button').style.visibility = 'hidden';
+          document.getElementById('cant_hear_button').style.visibility = 'hidden';
+          document.getElementById('info_box').style.visibility = 'hidden';
+          document.getElementById('start_button').style.visibility = 'visible';
+          document.getElementById('send_data_button').style.visibility = 'hidden';
+          document.getElementById('next_ear_button').style.visibility = 'hidden';
+          socket.emit('hearing_test', 'stop');
+        }
+        /*
+        When user stops being able to hear frequency in their left ear, this button is pressed and button appears for right ear test
+        */
+        function cant_hear() {
+          document.getElementById('info_box').innerHTML = "Insert Freq Data";
+          document.getElementById('next_ear_button').style.visibility = 'visible';
+          document.getElementById('cant_hear_button').style.visibility = 'hidden';
+          socket.emit('hearing_test', 'finish_left');
+        }
+        /*
+        WHen user stops being able to hear in their right ear, this button is pressed and test completes
+        */
+        function cant_hear2() {
+          document.getElementById('info_box').innerHTML = "Insert Freq Data";
+          document.getElementById('cant_hear_button2').style.visibility = 'hidden';
+          document.getElementById('send_data_button').style.visibility = 'visible';
+          socket.emit('hearing_test', 'finish_right');
+        /*
+        Starts right ear test 
+        */
+        }
+        function next_ear() {
+          document.getElementById('info_box').innerHTML = "RIGHT EAR TEST IS RUNNING";
+          document.getElementById('next_ear_button').style.visibility = 'hidden';
+          document.getElementById('cant_hear_button2').style.visibility = 'visible';
+          socket.emit('hearing_test', 'start_right');
+        }
+        /*
+        After the test is complete, this sends their score to database
+        */
+        function send_data() {
+          document.getElementById('send_data_button').style.visibility = 'hidden';
+          document.getElementById('start_button').style.visibility = 'visible';
+          document.getElementById('stop_button').style.visibility = 'hidden';
+          document.getElementById('info_box').style.visibility = 'hidden';
+          socket.emit('hearing_test', 'send_data');
+        }
+    </script>
+       
+
+</body>
+</html>
