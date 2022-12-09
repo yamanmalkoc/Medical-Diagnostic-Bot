@@ -3,7 +3,7 @@
     "version": "0.0.1",
     "description": "Remote Linux Server",
     "dependencies": {
-        "express": "^4.16.4",
+        "express": "^4.18.2",
         "socket.io": "latest"
     },
     "author": "Team B4"
